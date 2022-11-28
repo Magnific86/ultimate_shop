@@ -4,6 +4,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {},
+    fontFamily: {
+      mainfont: ["Nerko One", "cursive"]
+    }
   },
   plugins: [],
 }

@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <>
-    <div className="bg-green-200 dark:bg-slate-500 min-h-max flex flex-col justify-between">
+    <div className="bg-green-200 dark:bg-slate-500 min-h-max flex flex-col justify-between font-mainfont">
         <Provider>
           <div className="justify-self-start flex justify-between">
             <DarkMode />
