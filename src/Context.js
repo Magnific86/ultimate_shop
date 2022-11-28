@@ -40,7 +40,7 @@ function Provider(props) {
         if(login === true) {
             document.title = `Welcome`
         } else {
-            document.title = `Hi, ${name && `${name},`} goods in the store: ${items && items.length}, goods in the cart: ${userlist && userlist.length}`
+            document.title = `Hi, ${name && `${name},`} goods in the store: ${items && items.length}, goods in the cart:  ${userlist && userlist.length}`
         }
     }, [login, name, items, userlist])
 
@@ -72,14 +72,34 @@ function Provider(props) {
         setUserlist([])
     }
 
-
+ function getTotal() {
+   return userlist.reduce((acc, curr) => acc + (curr.count*curr.price), 0)
+ }
+   
     function handleAddItem(item) {
-        if(userlist.includes(item)) {
-            return null
-        } else if(!userlist.includes(item)) {
-            setUserlist([...userlist, item])
-        }
+       setUserlist([...userlist, {...item, count: 1}])
     }
+
+    function handleAddQuantity(id) {
+        setUserlist((userlist) => {
+          return userlist.map((item) => {
+            if (item.id === id) {
+              return { ...item, count: item.count + 1 };
+            } else return item;
+          });
+        });
+      }
+
+
+      function handleSubQuantity(id) {
+        setUserlist(userlist => {
+            return userlist.map(u => {
+                if(u.id === id && u.count > 0) {
+                    return {...u, count: u.count - 1}
+                } else return u
+            })
+        })
+      }
 
     function handleShop() {
         setLogin(!login)
@@ -102,7 +122,7 @@ function Provider(props) {
     <Context.Provider
     value={{
         theme, handleTheme, login, handleShop, basket, items, userlist, handleAddItem, handleResetBasket, handleDeleteItem,
-        handleChangeBasketShop, handleSignOut, name, handleNameChange, shop
+        handleChangeBasketShop, handleSignOut, name, handleNameChange, shop, handleAddQuantity, handleSubQuantity, getTotal, alert
     }}
     >
         {props.children}
