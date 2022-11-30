@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { Context } from "./Context";
 import Item from "./Item";
+import {ReactComponent as ReactLogoMark} from './mark.svg';
+import {ReactComponent as ReactLogoLoader} from './loader.svg';
+
 
 export default function Shop() {
   const { items, loader, handleAddItem, shop, userlist } = useContext(Context);
@@ -12,13 +15,9 @@ export default function Shop() {
       <>
         <div className="flex flex-col ">
           <h1 className="text-5xl text-black dark:text-green-200 pb-8">Shop</h1>
-          <div className="flex border min-w-screen mx-2">
+          <div className="flex min-w-screen mx-2">
             <ul className="flex flex-wrap">
-              {loader && (
-                <h1 className="text-5xl text-center text-red-500 font-bold">
-                  Processing...
-                </h1>
-              )}
+              {loader &&  <ReactLogoLoader className="w-60"/>}
               {items &&
                 items.map((item) => (
                   <li className="w-1/3" key={item.id}>
@@ -30,7 +29,7 @@ export default function Shop() {
                         return false;
                       }
                     }) ? (
-                      <p className="text-3xl text-green-700">Added</p>
+                     <ReactLogoMark className="w-10 mx-auto py-6"/>
                     ) : (
                       <button
                         onClick={() => handleAddItem(item)}

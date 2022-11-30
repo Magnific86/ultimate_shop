@@ -8,22 +8,21 @@ function Provider(props) {
   const [login, setLogin] = useState(true);
   const [shop, setShop] = useState(false);
   const [basket, setBasket] = useState(false);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const [name, setName] = useState("");
   const [items, setItems] = useState(() => {
     (async () => {
-      setLoader(true);
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
         const d = await response.data;
         if (d) {
           setItems(d);
-          console.log(d);
         }
       } catch (e) {
+        setLoader(false)
         console.error(e);
       } finally {
-        setLoader(false);
+         setLoader(false);
       }
     })();
   });
@@ -38,7 +37,7 @@ function Provider(props) {
   });
 
   useEffect(() => {
-    if (login === true) {
+    if (login) {
       document.title = `Welcome`;
     } else {
       document.title = `Hi, ${name && `${name},`} goods in the store: ${
@@ -85,10 +84,10 @@ function Provider(props) {
 
   function handleAddQuantity(id) {
     setUserlist((userlist) => {
-      return userlist.map((item) => {
-        if (item.id === id) {
-          return { ...item, count: item.count + 1 };
-        } else return item;
+      return userlist.map((u) => {
+        if (u.id === id) {
+          return { ...u, count: u.count + 1 };
+        } else return u;
       });
     });
   }
@@ -98,7 +97,7 @@ function Provider(props) {
       return userlist.map((u) => {
         if (u.id === id && u.count > 0) {
           return { ...u, count: u.count - 1 };
-        } else return u;
+        } else return u
       });
     });
   }
@@ -142,7 +141,7 @@ function Provider(props) {
           handleAddQuantity,
           handleSubQuantity,
           getTotal,
-          alert,
+          loader,
         }}
       >
         {props.children}
