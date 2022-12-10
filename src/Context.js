@@ -27,11 +27,10 @@ function Provider(props) {
     })();
   });
   const [userlist, setUserlist] = useState(() => {
-    console.log(JSON.parse(localStorage.getItem("userlist")));
     if (!localStorage.getItem("userlist")) {
       return [];
     } else if (localStorage.getItem("userlist")) {
-      console.log(JSON.parse(localStorage.getItem("userlist")));
+
       return JSON.parse(localStorage.getItem("userlist"));
     }
   });
