@@ -1,2 +1,2 @@
 //deployed on Vercel:
-https://next-first-try-tkqj.vercel.app/
+https://ultimate-shop.vercel.app/
